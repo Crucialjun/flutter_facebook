@@ -7,6 +7,7 @@ import 'package:flutter_facebook/widgets/create_post_container.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../config/palette.dart';
+import '../widgets/stories.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -54,7 +55,13 @@ class HomeScreen extends StatelessWidget {
           sliver: SliverToBoxAdapter(
             child: Rooms(onlineUsers: onlineUsers),
           ),
-        )
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+          sliver: SliverToBoxAdapter(
+            child: Stories(currentUser: currentUser, stories: stories),
+          ),
+        ),
       ],
     ));
   }
