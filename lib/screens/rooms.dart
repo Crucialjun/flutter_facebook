@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook/config/palette.dart';
+import 'package:flutter_facebook/widgets/profile_avatar.dart';
 
 import '../models/models.dart';
 
@@ -9,7 +11,7 @@ class Rooms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange,
+      color: Colors.white,
       height: 60.0,
       child: ListView.builder(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
@@ -18,18 +20,19 @@ class Rooms extends StatelessWidget {
           itemBuilder: (context, index) {
             if (index == 0) {
               return Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 8.0,
                 ),
                 child: _CreateRoomButton(),
               );
             }
-            return Container(
-              margin: const EdgeInsets.all(4),
-              color: Colors.red,
-              height: 20,
-              width: 20,
-            );
+            final User user = onlineUsers[index - 1];
+            return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ProfileAvatar(
+                  imageUrl: user.imageUrl,
+                  isActive: true,
+                ));
           }),
     );
   }
@@ -38,6 +41,35 @@ class Rooms extends StatelessWidget {
 class _CreateRoomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(onPressed: onPressed, child: child,style: OutlinedButtonTheme(),)
+    return OutlinedButton(
+      onPressed: () {},
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  side:
+                      const BorderSide(width: 4.0, color: Colors.blueAccent))),
+          backgroundColor: MaterialStateProperty.all(Colors.white)),
+      child: Row(
+        children: [
+          ShaderMask(
+            shaderCallback: ((bounds) {
+              return Palette.createRoomGradient.createShader(bounds);
+            }),
+            child: const Icon(
+              Icons.video_call,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          const Text(
+            "Create\nRoom",
+            style: TextStyle(color: Palette.facebookBlue),
+          ),
+        ],
+      ),
+    );
   }
 }

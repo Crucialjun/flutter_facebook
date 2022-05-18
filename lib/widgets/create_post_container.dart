@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook/widgets/profile_avatar.dart';
 
 import '../models/models.dart';
 
@@ -16,20 +16,7 @@ class CreatePostConrainer extends StatelessWidget {
       child: Column(children: [
         Row(
           children: [
-            CachedNetworkImage(
-              imageUrl: currentuser.imageUrl,
-              imageBuilder: (context, imageProvider) {
-                return Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover)),
-                );
-              },
-            ),
+            ProfileAvatar(imageUrl: currentuser.imageUrl),
             const SizedBox(
               width: 8.0,
             ),
